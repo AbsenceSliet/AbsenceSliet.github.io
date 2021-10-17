@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-17 21:01:16
- * @LastEditTime: 2021-10-17 21:23:51
+ * @LastEditTime: 2021-10-17 21:49:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /AbsenceSliet.github.io/lqbirthday/star/index.html
@@ -29,7 +29,7 @@
 </head>
 
 <body>
-    <audio autoplay="autoplay" loop="loop" preload="auto" src="./static/starrule.mp3"></audio>
+    <audio autoplay="autoplay" loop="loop" id="audio1" preload="auto" src="./static/starrule.mp3"></audio>
     <canvas id="canvas" style="position:absolute;width:100%;height:100%;z-index:8888"></canvas>
     <canvas style="position:absolute;width:100%;height:100%;z-index:9999" class="canvas"></canvas>
     <div class="overlay">
@@ -329,9 +329,13 @@
 
         initVars();
         frame();
+        window.onload=function() {
+            var el = document.getElementById('audio1')
+            el.play()
+        }
     </script>
     <script src="./static/index.js"></script>
-
+    
 </body>
 
 </html>
