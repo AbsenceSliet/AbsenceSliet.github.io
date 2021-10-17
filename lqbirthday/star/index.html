@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-17 21:01:16
- * @LastEditTime: 2021-10-17 21:49:36
+ * @LastEditTime: 2021-10-17 22:20:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /AbsenceSliet.github.io/lqbirthday/star/index.html
@@ -43,6 +43,37 @@
         </div>
     </div>
     <script>
+    function autoPlayAudio(voice) {
+            voice.play();
+            //判斷 WeixinJSBridge 是否存在
+            if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+                voice.play();
+            } else {
+                //監聽客户端抛出事件"WeixinJSBridgeReady"
+                if (document.addEventListener) {
+                    document.addEventListener("WeixinJSBridgeReady", function () {
+                        voice.play();
+                    }, false);
+                } else if (document.attachEvent) {
+                    document.attachEvent("WeixinJSBridgeReady", function () {
+                        voice.play();
+                    });
+                    document.attachEvent("onWeixinJSBridgeReady", function () {
+                        voice.play();
+                    });
+                }
+            }
+
+            //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
+            var voiceStatu = true;
+            //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
+            document.addEventListener("touchstart", function (e) {
+                if (voiceStatu) {
+                    voice.play();
+                    voiceStatu = false;
+                }
+            }, false);
+        }
         function initVars() {
 
             pi = Math.PI;
@@ -172,7 +203,8 @@
             }
             d = Math.sqrt((x - playerX) * (x - playerX) + (y - playerY) * (y - playerY) + (z - playerZ) * (z - playerZ));
             pow.volume = 1.5 / (1 + d / 10);
-            pow.play();
+            autoPlayAudio(pow)
+            // pow.play();
         }
 
         function doLogic() {
@@ -331,7 +363,7 @@
         frame();
         window.onload=function() {
             var el = document.getElementById('audio1')
-            el.play()
+            autoPlayAudio(el)
         }
     </script>
     <script src="./static/index.js"></script>
